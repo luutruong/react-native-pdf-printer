@@ -17,6 +17,6 @@ const PdfPrinter = NativeModules.PdfPrinter
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return PdfPrinter.multiply(a, b);
+export function printPdf(filePath: string): Promise<string> {
+  return PdfPrinter.printPDF(filePath);
 }
