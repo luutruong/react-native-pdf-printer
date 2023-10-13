@@ -11,11 +11,11 @@ npm install react-native-pdf-printer
 ## Usage
 
 ```js
-import { multiply } from 'react-native-pdf-printer';
+import { printPdf } from 'react-native-pdf-printer';
 
 // ...
 
-const result = await multiply(3, 7);
+const result = await printPdf("/path/to/local/pdf/file.pdf");
 ```
 
 ## Contributing
