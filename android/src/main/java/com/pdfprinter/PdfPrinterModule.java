@@ -22,11 +22,27 @@ public class PdfPrinterModule extends ReactContextBaseJavaModule {
     return NAME;
   }
 
-
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
   @ReactMethod
-  public void multiply(double a, double b, Promise promise) {
-    promise.resolve(a * b);
+  public void printPDF(String fileUri, Promise promise) {
+    PrintAttributes attributes = new PrintAttributes.Builder()
+        .build();
+    String jobName = Uri.parse(fileUri).getLastPathSegment();
+
+    PdfDocumentAdapter printAdapter = new PdfDocumentAdapter(fileUri, jobName);
+
+    try {
+      PrintManager printManager = (PrintManager) getCurrentActivity().getSystemService(Context.PRINT_SERVICE);
+
+      PrintJob job = printManager.print(jobName, printAdapter, attributes);
+      if (job.isCompleted()) {
+          promise.resolve("print completed");
+      } else if (job.isCancelled()) {
+          promise.reject("PRINT_CANCELLED", "print has been canceled");
+      } else if (job.isFailed()) {
+          promise.reject("PRINT_FAILED", "print failed");
+      }
+    } catch (Exception ex) {
+      promise.reject("PRINT_ERROR", ex);
+    }
   }
 }
