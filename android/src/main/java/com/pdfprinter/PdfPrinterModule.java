@@ -1,6 +1,11 @@
 package com.pdfprinter;
 
 import androidx.annotation.NonNull;
+import android.print.PrintJob;
+import android.print.PrintManager;
+import android.print.PrintAttributes;
+import android.content.Context;
+import android.net.Uri;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
